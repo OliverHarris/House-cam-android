@@ -44,7 +44,7 @@ public class SetupRetro {
         OkHttpClient client = httpClient.build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Resources.getSystem().getString(R.string.base_url))
+                .baseUrl("http://192.168.1.7:8000")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
