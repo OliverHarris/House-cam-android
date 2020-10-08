@@ -1,4 +1,4 @@
-package net.thejuggernaut.housecam.ui.notifications;
+package net.thejuggernaut.housecam.ui.setting;
 
 import android.view.View;
 
