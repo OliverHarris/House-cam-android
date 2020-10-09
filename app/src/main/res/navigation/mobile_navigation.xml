@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="net.thejuggernaut.housecam.ui.home.HomeFragment"
+        android:name="net.thejuggernaut.housecam.ui.live.LiveFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_live" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="net.thejuggernaut.housecam.ui.dashboard.DashboardFragment"
+        android:name="net.thejuggernaut.housecam.ui.videos.VideosFragment"
         android:label="@string/title_alerts"
         tools:layout="@layout/fragment_videos" />
 
