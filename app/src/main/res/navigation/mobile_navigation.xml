@@ -9,13 +9,13 @@
         android:id="@+id/navigation_home"
         android:name="net.thejuggernaut.housecam.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_live" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="net.thejuggernaut.housecam.ui.dashboard.DashboardFragment"
         android:label="@string/title_alerts"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_videos" />
 
     <fragment
         android:id="@+id/navigation_notifications"
