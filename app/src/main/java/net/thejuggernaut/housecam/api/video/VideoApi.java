@@ -13,10 +13,10 @@ public interface VideoApi {
 
 
     @GET("videos/{last}")
-    Call<Video> getVideosPagination(@Path("last") String laststamp);
+    Call<Video[]> getVideosPagination(@Path("last") String laststamp);
 
     @GET("videos/")
-    Call<Video> getVideos();
+    Call<Video[]> getVideos();
 
     @DELETE("video/{code}")
     Call<Void> deleteVideo(@Path("code") String code);

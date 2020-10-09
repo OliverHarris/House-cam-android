@@ -17,7 +17,7 @@ public class VideosFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_videos, container, false);
-
+        Actions.getFirst5(root);
         return root;
     }
 }
