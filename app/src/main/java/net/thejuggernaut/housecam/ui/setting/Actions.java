@@ -67,11 +67,57 @@ public class Actions {
     }
 
 
+    public static void updateSettings(final View root){
+        // Get the settings and update the view
+        final EditText textRTSP = (EditText) root.findViewById(R.id.textRTSP);
+        final EditText textFPS = (EditText) root.findViewById(R.id.textFPS);
+        final EditText textMin = (EditText) root.findViewById(R.id.textMinCount);
+        final EditText textBlur = (EditText) root.findViewById(R.id.textBlur);
+        final EditText textBufferBefore = (EditText) root.findViewById(R.id.textBufferBefore);
+        final EditText textBufferAfter = (EditText) root.findViewById(R.id.textBufferAfter);
+        final EditText textNoMove = (EditText) root.findViewById(R.id.textNoMove);
+        final Switch debug = (Switch) root.findViewById(R.id.switchDebug);
+        final Switch motion = (Switch) root.findViewById(R.id.switchMotion);
+
+        Setting setting = new Setting();
+        setting.setConnection(textRTSP.getText().toString());
+        setting.setFps(Integer.parseInt(textFPS.getText().toString()));
+        setting.setMinCount(Integer.parseInt(textMin.getText().toString()));
+        setting.setBlur(Integer.parseInt(textBlur.getText().toString()));
+        setting.setBufferAfter(Integer.parseInt(textBufferAfter.getText().toString()));
+        setting.setBufferBefore(Integer.parseInt(textBufferBefore.getText().toString()));
+        setting.setNoMoveRefreshCount(Integer.parseInt(textNoMove.getText().toString()));
+        setting.setDebug(debug.isChecked());
+        setting.setMotion(motion.isChecked());
+
+        // Connect and display settings
+        SettingApi api = SetupRetro.getRetro(root.getContext());
+        Call<Void> call = api.updateSetting(setting);
+        call.enqueue(new Callback<Void>() { @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            if(response.isSuccessful()) {
+                alert(root.getContext(),"Updated","");
+            } else {
+                alert(root.getContext(),"Internal error","Couldn't update settings");
+            }
+        }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                alert(root.getContext(),"Android error","Couldn't update settings");
+                t.printStackTrace();
+            }
+
+        });
+    }
+
+
     private static void alert(Context c, String title, String message){
         new AlertDialog.Builder(c)
                 .setTitle(title)
                 .setMessage(message)
                 .setIcon(android.R.drawable.ic_dialog_alert)
+                .setNegativeButton(android.R.string.ok, null)
                 .show();
     }
 
