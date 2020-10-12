@@ -13,7 +13,15 @@ public class Video implements Serializable {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public int getSize() {
+        return size;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public int getStamp() {
+        return stamp;
     }
 }

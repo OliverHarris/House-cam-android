@@ -1,6 +1,10 @@
 package net.thejuggernaut.housecam.ui.videos;
 
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,9 +32,25 @@ public class Actions {
         public void onResponse(Call<Video[]> call, Response<Video[]> response) {
         vidLayout.removeAllViews();
          for ( Video vid:response.body()){
-             TextView txt = new TextView(root.getContext());
-             txt.setText((vid.getCode()));
-             vidLayout.addView(txt);
+             TextView title = new TextView(root.getContext());
+             TextView fs = new TextView(root.getContext());
+             ImageView img = new ImageView(root.getContext());
+             LinearLayout l = new LinearLayout(root.getContext());
+             // Load image
+             LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(480,270);
+             img.setLayoutParams(parms);
+             byte[] data = Base64.decode(vid.getImage(), Base64.DEFAULT);
+             img.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
+
+
+             title.setText((vid.getCode()));
+             int conv = vid.getSize()/1000/1000;
+            fs.setText( Integer.toString(conv)+"MB");
+
+             l.addView(img);
+             l.addView(title);
+             vidLayout.addView(l);
+             vidLayout.addView((fs));
          }
 
         }
