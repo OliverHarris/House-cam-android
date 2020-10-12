@@ -11,7 +11,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.VideoView;
+
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 
 import net.thejuggernaut.housecam.R;
 
@@ -109,7 +114,7 @@ public class DisplayVideo extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.videoView);
+        mContentView = findViewById(R.id.videoPlayer);
 //
 //        // Set up the user interaction to manually show or hide the system UI.
 //        mContentView.setOnClickListener(new View.OnClickListener() {
@@ -128,10 +133,15 @@ public class DisplayVideo extends AppCompatActivity {
         Intent intent = getIntent();
         String value = intent.getStringExtra("videourl"); //if it's a string you stored.
         System.out.println("Url to get video.. "+value);
-        VideoView videoView = findViewById(R.id.videoView);
         Uri video = Uri.parse(value);
-        videoView.setVideoURI(video);
-        videoView.start();
+
+        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
+        PlayerView pv = findViewById(R.id.videoPlayer);
+        pv.setPlayer(player);
+
+        MediaItem mediaItem = MediaItem.fromUri(video);
+        player.setMediaItem(mediaItem);
+        player.prepare();
 
     }
 
