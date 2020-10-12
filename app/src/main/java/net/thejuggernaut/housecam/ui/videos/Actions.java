@@ -1,5 +1,6 @@
 package net.thejuggernaut.housecam.ui.videos;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.View;
@@ -8,12 +9,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import net.thejuggernaut.housecam.MainActivity;
 import net.thejuggernaut.housecam.R;
 import net.thejuggernaut.housecam.api.settings.SettingApi;
 import net.thejuggernaut.housecam.api.settings.SetupRetro;
 import net.thejuggernaut.housecam.api.video.SetupVideoApi;
 import net.thejuggernaut.housecam.api.video.Video;
 import net.thejuggernaut.housecam.api.video.VideoApi;
+import net.thejuggernaut.housecam.ui.video.DisplayVideo;
+
+import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +46,18 @@ public class Actions {
              img.setLayoutParams(parms);
              byte[] data = Base64.decode(vid.getImage(), Base64.DEFAULT);
              img.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
+
+             // Set onclick to display video
+             img.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     Intent myIntent = new Intent(root.getContext(), DisplayVideo.class);
+                     String value = "http://192.168.1.7:8000/motion/hq/"+ URLEncoder.encode(vid.getCode());
+
+                     myIntent.putExtra("videourl", value); //Optional parameters
+                   root.getContext().startActivity(myIntent);
+                 }
+             });
 
 
              title.setText((vid.getCode()));
