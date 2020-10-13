@@ -13,6 +13,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import net.thejuggernaut.housecam.ui.setting.Actions;
 
+import static net.thejuggernaut.housecam.ui.videos.Actions.getFirst5;
+import static net.thejuggernaut.housecam.ui.videos.Actions.getNext;
+import static net.thejuggernaut.housecam.ui.videos.Actions.getPrev;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -33,6 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void settingOnSaveClick(View v){
         Actions.updateSettings(v.getRootView());
+    }
+
+    public void videoNext(View v){
+        getNext();
+    }
+
+    public void videoPrev(View v){
+        getPrev();
+    }
+
+    public void videoListReset(View v){
+        getFirst5();
     }
 
 }

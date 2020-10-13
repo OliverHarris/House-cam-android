@@ -13,7 +13,10 @@ public interface VideoApi {
 
 
     @GET("videos/{last}")
-    Call<Video[]> getVideosPagination(@Path("last") String laststamp);
+    Call<Video[]> getVideosPagination(@Path("last") int laststamp);
+
+    @GET("videos/{last}?rev=true")
+    Call<Video[]> getVideosPaginationPrev(@Path("last") int laststamp);
 
     @GET("videos/")
     Call<Video[]> getVideos();
