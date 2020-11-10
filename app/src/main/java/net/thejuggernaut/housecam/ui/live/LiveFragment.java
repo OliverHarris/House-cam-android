@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import net.thejuggernaut.housecam.R;
+import net.thejuggernaut.housecam.api.general.Info;
 import net.thejuggernaut.housecam.api.stream.Websocket;
 
 import java.util.concurrent.TimeUnit;
@@ -27,20 +28,28 @@ public class LiveFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_live, container, false);
+        createStream();
+        return root;
+    }
+
+    public void createStream(){
+        if(Info.serverAddr == ""){
+            // No address
+            return;
+        }
         Websocket.shared = false;
         client = new OkHttpClient.Builder()
                 .readTimeout(100,  TimeUnit.MILLISECONDS)
                 .build();
         Websocket w = new Websocket(getActivity());
         Request request = new Request.Builder()
-                .url("ws://192.168.1.7:8000/stream")
+                .url("ws://"+ Info.serverAddr+"/stream")
                 .build();
         client.newWebSocket(request, w);
 
         // Trigger shutdown of the dispatcher's executor so this process can exit cleanly.
         client.dispatcher().executorService().shutdown();
 
-        return root;
     }
 
     public void onPause () {

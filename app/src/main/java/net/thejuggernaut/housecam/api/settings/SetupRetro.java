@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.thejuggernaut.housecam.R;
+import net.thejuggernaut.housecam.api.general.Info;
 
 import java.io.IOException;
 
@@ -20,7 +21,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SetupRetro {
 
-    public static SettingApi getRetro(Context c){
+    public static SettingApi getRetro(Context c) throws Exception {
+        if(Info.serverAddr == ""){
+            throw new Exception("No server address");
+        }
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
@@ -44,7 +48,7 @@ public class SetupRetro {
         OkHttpClient client = httpClient.build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.7:8000")
+                .baseUrl("http://"+Info.serverAddr)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

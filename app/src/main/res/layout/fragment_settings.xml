@@ -82,6 +82,27 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="FPS" />
+
+                <EditText
+                    android:id="@+id/textFPS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -143,27 +164,6 @@
                     <EditText
                         android:id="@+id/textBufferAfter"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="number" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="FPS" />
-
-                    <EditText
-                        android:id="@+id/textFPS"
-                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"

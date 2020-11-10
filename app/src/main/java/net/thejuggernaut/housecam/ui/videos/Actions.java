@@ -37,7 +37,13 @@ public class Actions {
 
     public static void getFirst5(){
         // Connect and display settings
-        VideoApi api = SetupVideoApi.getRetro(rootView.getContext());
+        VideoApi api = null;
+        try {
+            api = SetupVideoApi.getRetro(rootView.getContext());
+        } catch (Exception e) {
+            // No address
+            return;
+        }
         Call<Video[]> call = api.getVideos();
         call.enqueue(new Callback<Video[]>() { @Override
         public void onResponse(Call<Video[]> call, Response<Video[]> response) {
@@ -62,7 +68,13 @@ public class Actions {
         Button b = (Button) rootView.findViewById(R.id.buttonPrev);
         b.setEnabled(true);
         // Connect and display settings
-        VideoApi api = SetupVideoApi.getRetro(rootView.getContext());
+        VideoApi api = null;
+        try {
+            api = SetupVideoApi.getRetro(rootView.getContext());
+        } catch (Exception e) {
+            // No address
+            return;
+        }
         Call<Video[]> call = api.getVideosPagination(lastVideo);
         call.enqueue(new Callback<Video[]>() { @Override
         public void onResponse(Call<Video[]> call, Response<Video[]> response) {
@@ -85,7 +97,13 @@ public class Actions {
 
     public static void getPrev(){
         // Connect and display settings
-        VideoApi api = SetupVideoApi.getRetro(rootView.getContext());
+        VideoApi api = null;
+        try {
+            api = SetupVideoApi.getRetro(rootView.getContext());
+        } catch (Exception e) {
+            // No address
+            return;
+        }
         Call<Video[]> call = api.getVideosPaginationPrev(firstVideo);
         call.enqueue(new Callback<Video[]>() { @Override
         public void onResponse(Call<Video[]> call, Response<Video[]> response) {

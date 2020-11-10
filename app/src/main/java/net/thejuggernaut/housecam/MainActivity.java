@@ -1,7 +1,10 @@
 package net.thejuggernaut.housecam;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import net.thejuggernaut.housecam.api.general.Info;
 import net.thejuggernaut.housecam.ui.setting.Actions;
 
 import static net.thejuggernaut.housecam.ui.videos.Actions.getFirst5;
@@ -32,8 +36,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        setup(getApplicationContext());
     }
 
+    public void setup(Context root){
+        // Get local settings
+        SharedPreferences sharedPref = root.getSharedPreferences(
+                "GateCameSettings", Context.MODE_PRIVATE);
+        Info.serverAddr = sharedPref.getString("serverAddr","" );
+    }
 
     public void settingOnSaveClick(View v){
         Actions.updateSettings(v.getRootView());
