@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.jsibbold.zoomage.ZoomageView;
 
 import net.thejuggernaut.housecam.R;
 import net.thejuggernaut.housecam.api.video.SetupVideoApi;
@@ -20,6 +24,7 @@ public class Websocket extends WebSocketListener {
 
 
     private Activity act;
+    public static boolean shared;
     public Websocket(Activity act){
         this.act = act;
     }
@@ -29,19 +34,37 @@ public class Websocket extends WebSocketListener {
     }
     JSONObject jsonObject = null;
     @Override public void onMessage(WebSocket webSocket, final String text) {
-        System.out.println("MESSAGE: " + text);
+        ZoomageView i = (ZoomageView) act.findViewById(R.id.imageVideo);
+        TextView txt = (TextView) act.findViewById(R.id.liveViewText);
+
+      //  System.out.println("MESSAGE: " + text);
 
         try {
             jsonObject = new JSONObject(text);
-            System.out.println("Json message has.. "+jsonObject.toString());
+           // System.out.println("Json message has.. "+jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         act.runOnUiThread(new Runnable() {
+
                 @Override
                 public void run() {
+                    if(shared){
+                        webSocket.cancel();
+                        return;
+                    }
                     //Handle UI here
-                    ImageView i = (ImageView) act.findViewById(R.id.imageVideo);
+                    if(txt!= null){
+                        txt.setVisibility(View.INVISIBLE);
+                    }
+
+
+                    if(i == null){
+                        // The image view no longer exists (rotated screen)
+                        webSocket.cancel();
+                        System.out.println("End websocket");
+                        return;
+                    }
                     byte[] decodedString = new byte[0];//Base64.decode(text, Base64.DEFAULT);
                     try {
                         decodedString = Base64.decode(jsonObject.getString("Image"), Base64.DEFAULT);
@@ -49,7 +72,13 @@ public class Websocket extends WebSocketListener {
                         e.printStackTrace();
                     }
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                    // Get the previous zoom
+                    ImageView.ScaleType zo = i.getScaleType();
+                    // Update the image
                     i.setImageBitmap(decodedByte);
+                    // Update the zoom
+                    i.setScaleType(zo);
                 }
             });
 
@@ -58,11 +87,33 @@ public class Websocket extends WebSocketListener {
     }
 
     @Override public void onClosing(WebSocket webSocket, int code, String reason) {
+        TextView txt = (TextView) act.findViewById(R.id.liveViewText);
+        act.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(txt!= null){
+                    txt.setVisibility(View.VISIBLE);
+                    txt.setText("Closed the camera connection");
+                }
+
+            }
+        });
         webSocket.close(1000, null);
         System.out.println("CLOSE: " + code + " " + reason);
     }
 
     @Override public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+        TextView txt = (TextView) act.findViewById(R.id.liveViewText);
+        act.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(txt!= null){
+                    txt.setVisibility(View.VISIBLE);
+                    txt.setText("I tried my best. But I failed to connect");
+                }
+
+            }
+        });
         t.printStackTrace();
     }
 

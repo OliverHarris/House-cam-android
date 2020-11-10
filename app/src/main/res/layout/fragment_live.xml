@@ -11,11 +11,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <com.jsibbold.zoomage.ZoomageView
             android:id="@+id/imageVideo"
+            app:zoomage_zoomable="true"
+            app:zoomage_animateOnReset="false"
+            app:zoomage_autoResetMode="NEVER"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:srcCompat="@drawable/ic_home_black_24dp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/liveViewText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fear not, connecting to camera"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

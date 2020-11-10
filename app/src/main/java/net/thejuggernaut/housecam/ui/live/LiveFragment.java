@@ -22,12 +22,13 @@ import okhttp3.Request;
 
 public class LiveFragment extends Fragment {
 
-
+    OkHttpClient client = null;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_live, container, false);
-        OkHttpClient client = new OkHttpClient.Builder()
+        Websocket.shared = false;
+        client = new OkHttpClient.Builder()
                 .readTimeout(100,  TimeUnit.MILLISECONDS)
                 .build();
         Websocket w = new Websocket(getActivity());
@@ -40,5 +41,11 @@ public class LiveFragment extends Fragment {
         client.dispatcher().executorService().shutdown();
 
         return root;
+    }
+
+    public void onPause () {
+        Websocket.shared = true;
+        System.out.println("Pause!");
+        super.onPause();
     }
 }
