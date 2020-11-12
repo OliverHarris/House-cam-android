@@ -37,22 +37,24 @@ public class Websocket extends WebSocketListener {
         ZoomageView i = (ZoomageView) act.findViewById(R.id.imageVideo);
         TextView txt = (TextView) act.findViewById(R.id.liveViewText);
 
-      //  System.out.println("MESSAGE: " + text);
+        //System.out.println("MESSAGE: " + text);
 
         try {
             jsonObject = new JSONObject(text);
            // System.out.println("Json message has.. "+jsonObject.toString());
         } catch (JSONException e) {
+            System.out.println("Error in json");
             e.printStackTrace();
         }
         act.runOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
-                    if(shared){
-                        webSocket.cancel();
-                        return;
-                    }
+//                    if(shared){
+//                        System.out.println("Shared has asked socket to close");
+//                        webSocket.cancel();
+//                        return;
+//                    }
                     //Handle UI here
                     if(txt!= null){
                         txt.setVisibility(View.INVISIBLE);
@@ -62,7 +64,7 @@ public class Websocket extends WebSocketListener {
                     if(i == null){
                         // The image view no longer exists (rotated screen)
                         webSocket.cancel();
-                        System.out.println("End websocket");
+                        System.out.println("End websocket due to no image area to change");
                         return;
                     }
                     byte[] decodedString = new byte[0];//Base64.decode(text, Base64.DEFAULT);
