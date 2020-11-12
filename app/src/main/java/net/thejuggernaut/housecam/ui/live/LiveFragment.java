@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -26,8 +28,9 @@ public class LiveFragment extends Fragment {
     OkHttpClient client = null;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_live, container, false);
+        // Ensure title bar is hidden
+       // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         createStream();
         return root;
     }
@@ -38,12 +41,14 @@ public class LiveFragment extends Fragment {
             return;
         }
         Websocket.shared = false;
+        String url = "ws://"+ Info.serverAddr+"/stream";
+        System.out.println("Url.. "+url);
         client = new OkHttpClient.Builder()
                 .readTimeout(100,  TimeUnit.MILLISECONDS)
                 .build();
         Websocket w = new Websocket(getActivity());
         Request request = new Request.Builder()
-                .url("ws://"+ Info.serverAddr+"/stream")
+                .url(url)
                 .build();
         client.newWebSocket(request, w);
 

@@ -13,11 +13,11 @@
 
         <com.jsibbold.zoomage.ZoomageView
             android:id="@+id/imageVideo"
-            app:zoomage_zoomable="true"
-            app:zoomage_animateOnReset="false"
-            app:zoomage_autoResetMode="NEVER"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:zoomage_animateOnReset="false"
+            app:zoomage_autoResetMode="NEVER"
+            app:zoomage_zoomable="true"
             tools:srcCompat="@drawable/ic_home_black_24dp" />
     </LinearLayout>
 

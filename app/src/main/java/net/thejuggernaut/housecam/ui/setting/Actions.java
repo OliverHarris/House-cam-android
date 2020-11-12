@@ -104,12 +104,13 @@ public class Actions {
         editor.putString("serverAddr", textServerAddr.getText().toString());
         editor.apply();
 
+        String oldAddr = Info.serverAddr;
         // Update local vars
         Info.serverAddr = textServerAddr.getText().toString();
 
         // Check to see if the server address has changed, if so, don't update the other settings!
-        System.out.println("Prev = "+Info.serverAddr + " new "+textServerAddr.getText().toString());
-        if(!Info.serverAddr.equals(textServerAddr.getText().toString())){
+        System.out.println("Prev = "+oldAddr + " new "+textServerAddr.getText().toString() + " so "+oldAddr.equals(textServerAddr.getText().toString()));
+        if(!oldAddr.equals(textServerAddr.getText().toString())){
             alert(root.getContext(),"Updated","Only local settings as server address changed");
             return;
         }
