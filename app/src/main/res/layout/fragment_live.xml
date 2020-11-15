@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.live.LiveFragment">
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/zoomieButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="#81000000"
+        android:clickable="true"
+        android:onClick="zoomieClick"
+        android:src="@drawable/exo_controls_fullscreen_enter"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,6 +30,8 @@
             android:id="@+id/imageVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#85000000"
             app:zoomage_animateOnReset="false"
             app:zoomage_autoResetMode="NEVER"
             app:zoomage_zoomable="true"

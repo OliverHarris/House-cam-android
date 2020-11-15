@@ -23,13 +23,13 @@ import static net.thejuggernaut.housecam.ui.videos.Actions.getNext;
 import static net.thejuggernaut.housecam.ui.videos.Actions.getPrev;
 
 public class MainActivity extends AppCompatActivity {
-
+    BottomNavigationView navView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
         setup(getApplicationContext());
     }
 
@@ -63,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void videoListReset(View v){
         getFirst5();
+    }
+
+    public void zoomieClick(View v){
+        View windowDecorView = getWindow().getDecorView();
+        int cur = navView.getVisibility();
+        if(cur == View.GONE){
+            navView.setVisibility(View.VISIBLE);
+            windowDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }else {
+            navView.setVisibility(View.GONE);
+            windowDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
     }
 
 }

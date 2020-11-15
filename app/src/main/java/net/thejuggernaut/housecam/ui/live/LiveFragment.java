@@ -1,10 +1,14 @@
 package net.thejuggernaut.housecam.ui.live;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import net.thejuggernaut.housecam.R;
 import net.thejuggernaut.housecam.api.general.Info;
@@ -24,7 +30,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class LiveFragment extends Fragment {
-
     OkHttpClient client = null;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +59,6 @@ public class LiveFragment extends Fragment {
 
         // Trigger shutdown of the dispatcher's executor so this process can exit cleanly.
         client.dispatcher().executorService().shutdown();
-
     }
 
     public void onPause () {

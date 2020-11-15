@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jsibbold.zoomage.ZoomageView;
 
 import net.thejuggernaut.housecam.R;
@@ -50,11 +51,11 @@ public class Websocket extends WebSocketListener {
 
                 @Override
                 public void run() {
-//                    if(shared){
-//                        System.out.println("Shared has asked socket to close");
-//                        webSocket.cancel();
-//                        return;
-//                    }
+                    if(shared){
+                        System.out.println("Shared has asked socket to close");
+                        webSocket.cancel();
+                        return;
+                    }
                     //Handle UI here
                     if(txt!= null){
                         txt.setVisibility(View.INVISIBLE);
