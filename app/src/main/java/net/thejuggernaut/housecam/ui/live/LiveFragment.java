@@ -49,7 +49,7 @@ public class LiveFragment extends Fragment {
         String url = "ws://"+ Info.serverAddr+"/stream";
         System.out.println("Url.. "+url);
         client = new OkHttpClient.Builder()
-                .readTimeout(100,  TimeUnit.MILLISECONDS)
+                .readTimeout(1,  TimeUnit.SECONDS)
                 .build();
         Websocket w = new Websocket(getActivity());
         Request request = new Request.Builder()
